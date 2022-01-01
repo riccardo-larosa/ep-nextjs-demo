@@ -1,11 +1,17 @@
 import { useRouter } from "next/router";
 import getAccessToken from "../../../services/authentication";
+import Meta from "../../../components/Meta";
 
 const product = ({ product }) => {
   //   const router = useRouter();
   //   const { id } = router.query;
   console.log(product);
-  return <div>this is a product {product.attributes["name"]}</div>;
+  return (
+    <>
+      <Meta title={product.attributes["name"]} />
+      <div>this is a product {product.attributes["name"]}</div>
+    </>
+  );
 };
 
 // in this case we are using getStaticProps
@@ -49,6 +55,7 @@ export const getStaticPaths = async () => {
   console.log(paths);
   return {
     paths: paths,
+    // fallback: false
     // We'll pre-render only these paths at build time.
     // { fallback: blocking } will server-render pages
     // on-demand if the path doesn't exist.

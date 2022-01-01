@@ -6,7 +6,7 @@ const NodeList = ({nodes}) => {
     return (
         <div className={nodeStyles.grid}>
              {nodes.map( (node) => (
-                 <NodeItem node={node} />
+                 <NodeItem node={node} key={node.id}/>
       ))}
         </div>
     )}

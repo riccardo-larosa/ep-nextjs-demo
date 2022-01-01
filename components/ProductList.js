@@ -6,7 +6,7 @@ const ProductList = ({products}) => {
     return (
         <div className={nodeStyles.grid}>
              {products.map( (product) => (
-                 <ProductItem product={product} />
+                 <ProductItem product={product} key={product.id} />
       ))}
         </div>
     )}

@@ -28,6 +28,7 @@ const getAccessToken = async () => {
   );
 
   const { access_token } = await authResponse.json();
+  console.log(access_token)
   return access_token;
 };
 

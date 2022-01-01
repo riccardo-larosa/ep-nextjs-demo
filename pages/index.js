@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+// import Image from 'next/image'
 import NodeList from '../components/NodeList'
 import getAccessToken from '../services/authentication'
 
