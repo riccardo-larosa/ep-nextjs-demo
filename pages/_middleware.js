@@ -5,17 +5,13 @@ import { getAccessToken } from "../services/authentication";
 
 export async function middleware(req, res) {
   
-  console.log('Running Middleware')
-  
-  const cookie = req.cookies['token'];
-    console.log(`cookie in MW is $`,cookie)
+  const cookie = req.cookies["token"];
+  //console.log(`cookie in MW is`, cookie);
   // if token is invalid
   if (cookie === undefined || "") {
     res = NextResponse.next();
-    console.log("Middleware: Token is invalid");
+    //console.log("Middleware: Token is invalid");
     const token = await getAccessToken(req, res);
-    console.log(`Middleware: setting the token cookie to ${token}`);
-    console.log(JSON.stringify(token));
     // then set it on the cookie of the response
     res.cookie("token", token, {
       httpOnly: true,
@@ -29,5 +25,5 @@ export async function middleware(req, res) {
     // token is valid
     console.log(`Middleware: Token is valid: ${cookie}`);
   }
-//   return res;
+  //   return res;
 }

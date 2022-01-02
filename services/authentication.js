@@ -13,14 +13,7 @@ export async function getAccessToken (req, res){
   // TODO: if req is coming from the server then you don't have a cookie, 
   //        then we will generate a new one
 
-//   const cookie = req.cookies;
-//   if ( cookie !== undefined) {
-//     return cookie['token'] 
-//   } 
 
-//   if (req !== undefined && req.cookies !== undefined) {
-//       return req.cookies['token']
-//   }
   const clientID = process.env.NEXT_PUBLIC_EP_CLIENT_ID;
   const APIBaseURL = process.env.NEXT_PUBLIC_EP_API_BASE_URL;
   const grantType = "implicit";

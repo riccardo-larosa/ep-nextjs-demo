@@ -38,6 +38,7 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async ( context ) => {
+  // in this case the req is processed server side so I don't have cookies 
   const token = await getAccessToken( context.req, context.res);
   var headers = {
     Authorization: `Bearer ${token}`,

@@ -15,7 +15,10 @@ const node = ({ prodList }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const token = await getAccessToken(context.req, context.res);
+  //const token = await getAccessToken(context.req, context.res);
+  const  cookies = context.req.cookies
+  var token = cookies['token']
+  
   var headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -24,8 +27,6 @@ export const getServerSideProps = async (context) => {
     { method: "GET", headers: headers }
   );
   const { data }  = await res.json();
-  //console.log(data)
-  //const prodList = data;
   return {
     props: {
       prodList: data,
