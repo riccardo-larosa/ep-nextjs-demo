@@ -1,7 +1,7 @@
 
 
 
-const getAccessToken = async () => {
+export async function getAccessToken (req, res){
 
   //Logic should be
   // if you don't have a token or if it's invalid or expired, 
@@ -12,6 +12,15 @@ const getAccessToken = async () => {
   // TODO: token should be saved in a cookie
   // TODO: if req is coming from the server then you don't have a cookie, 
   //        then we will generate a new one
+
+//   const cookie = req.cookies;
+//   if ( cookie !== undefined) {
+//     return cookie['token'] 
+//   } 
+
+//   if (req !== undefined && req.cookies !== undefined) {
+//       return req.cookies['token']
+//   }
   const clientID = process.env.NEXT_PUBLIC_EP_CLIENT_ID;
   const APIBaseURL = process.env.NEXT_PUBLIC_EP_API_BASE_URL;
   const grantType = "implicit";
@@ -32,24 +41,24 @@ const getAccessToken = async () => {
   return access_token;
 };
 
-const refreshAccessToken = async (token) => {
-    try {
+// const refreshAccessToken = async (token) => {
+//     try {
         
-        //set access token in cookie
-        //set refresh access token
-        return token
+//         //set access token in cookie
+//         //set refresh access token
+//         return token
 
-    } catch (error) {
-        console.error(error)
-        return {
-            ...token,
-            error: 'RefreshAccessTokenError'
-        }
+//     } catch (error) {
+//         console.error(error)
+//         return {
+//             ...token,
+//             error: 'RefreshAccessTokenError'
+//         }
         
-    }
-}
+//     }
+// }
 
-export default getAccessToken;
+//export default getAccessToken;
 
 // const getClient = (url ='', data = {}) => {
 //     const token = await getAccessToken()

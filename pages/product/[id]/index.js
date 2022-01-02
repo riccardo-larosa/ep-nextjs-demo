@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import getAccessToken from "../../../services/authentication";
+import { getAccessToken } from "../../../services/authentication";
 import Meta from "../../../components/Meta";
 
 const product = ({ product }) => {
@@ -17,7 +17,7 @@ const product = ({ product }) => {
 // in this case we are using getStaticProps
 // BUT we could easily used getServerSideProps
 export const getStaticProps = async (context) => {
-  const token = await getAccessToken();
+  const token = await getAccessToken(context.req, context.res);
   var headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -37,8 +37,8 @@ export const getStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths = async () => {
-  const token = await getAccessToken();
+export const getStaticPaths = async ( context ) => {
+  const token = await getAccessToken( context.req, context.res);
   var headers = {
     Authorization: `Bearer ${token}`,
   };

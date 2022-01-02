@@ -1,6 +1,6 @@
 import ProductList from "../../../components/ProductList";
 import { useRouter } from "next/router";
-import getAccessToken from "../../../services/authentication";
+import { getAccessToken } from "../../../services/authentication";
 
 const node = ({ prodList }) => {
   //   const router = useRouter();
@@ -15,7 +15,7 @@ const node = ({ prodList }) => {
 };
 
 export const getServerSideProps = async (context) => {
-  const token = await getAccessToken();
+  const token = await getAccessToken(context.req, context.res);
   var headers = {
     Authorization: `Bearer ${token}`,
   };
