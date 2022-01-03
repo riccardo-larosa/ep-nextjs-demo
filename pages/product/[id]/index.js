@@ -1,18 +1,39 @@
 import { useRouter } from "next/router";
 import { getAccessToken } from "../../../services/authentication";
 import Meta from "../../../components/Meta";
+import useSWR from "swr";
+import fetcher from "../../../services/fetcher";
 
-const product = ({ product }) => {
-  //   const router = useRouter();
-  //   const { id } = router.query;
+
+function product({ product }) {
+  const { data, mutate } = useSWR('/api/cart', fetcher);
   console.log(product);
   return (
     <>
-      <Meta title={product.attributes["name"]} />
-      <div>this is a product {product.attributes["name"]}</div>
+      <Meta title={product.attributes.name} />
+      <div>{product.attributes.name}</div>
+      <span> {product.meta.display_price.without_tax.formatted}</span>
+      <button type="button"
+        onClick={() => {
+          fetch("/api/cart", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({id: product.id, type: "cart_item", quantity: 1})
+          })
+          mutate()
+        }
+        
+        } >
+        Add to Cart
+      </button>
+      <br />
+      <span> {product.attributes.sku}</span><br />
+      <span>{product.attributes.description}</span>
     </>
   );
-};
+}
 
 // in this case we are using getStaticProps
 // BUT we could easily used getServerSideProps

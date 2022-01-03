@@ -1,16 +1,18 @@
 import Link from "next/link";
-import nodeStyles from "../styles/Node.module.css";
+// import nodeStyles from "../styles/Node.module.css";
 
 const ProductItem = ({ product }) => {
   //console.log(product);
   return (
     <>
       <Link href={`/product/${product.id}`} key={product.id}>
-        <a className={nodeStyles.card}>
-          <h3 key={product.id}>{product.attributes["name"]}</h3>
+        <a>
+          <h3 key={product.id}>{product.attributes.name}</h3>
         </a>
-      </Link>
-      <span>{product.attributes["description"]}</span>
+      </Link> 
+      <span> {product.meta.display_price.without_tax.formatted}</span>
+      <br />
+      <span>{product.attributes.description}</span>
     </>
   );
 };

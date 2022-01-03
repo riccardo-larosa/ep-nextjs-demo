@@ -1,10 +1,10 @@
 import Link from "next/link";
 import navStyles from "../styles/Nav.module.css";
-import fetch from "../services/fetcher";
+import fetcher from "../services/fetcher";
 import useSWR from "swr";
 
 const Nav = () => {
-  const { data, error } = useSWR("/api/cartnav", fetch);
+  const { data, mutate } = useSWR("/api/cart", fetcher);
   return (
     <nav className={navStyles.nav}>
       <ul>
@@ -20,7 +20,7 @@ const Nav = () => {
         <li>
           <Link href="/cart">Cart</Link>
 
-          {data ? <div>items: {data.items}</div> : "loading..."}
+          {data ? <div>items: {data.meta.display_price.with_tax.formatted}</div> : "loading..."}
         </li>
       </ul>
     </nav>

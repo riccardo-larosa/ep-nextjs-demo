@@ -6,7 +6,7 @@ export default (req, res) => {
     cookie.serialize("token", req.body.token, {
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
-      maxAge: 60 * 60, // 1 hour
+      maxAge: 60 * 60 * 1000, // 1 hour
       sameSite: "strict",
       path: "/",
     })

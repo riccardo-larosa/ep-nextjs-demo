@@ -8,7 +8,7 @@ const node = ({ prodList }) => {
   //console.log(prodList);
   return (
     <div>
-      Products for this nodes
+      Products for this node: 
       <ProductList products={prodList} />
     </div>
   );
@@ -27,6 +27,7 @@ export const getServerSideProps = async (context) => {
     { method: "GET", headers: headers }
   );
   const { data }  = await res.json();
+  console.log(data)
   return {
     props: {
       prodList: data,
