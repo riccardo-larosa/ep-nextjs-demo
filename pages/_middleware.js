@@ -6,11 +6,9 @@ import { getAccessToken } from "../services/authentication";
 export async function middleware(req, res) {
   
   const cookie = req.cookies["token"];
-  //console.log(`cookie in MW is`, cookie);
   // if token is invalid
   if (cookie === undefined || "") {
     res = NextResponse.next();
-    //console.log("Middleware: Token is invalid");
     const token = await getAccessToken(req, res);
     // then set it on the cookie of the response
     res.cookie("token", token, {
