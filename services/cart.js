@@ -9,10 +9,11 @@ export async function getCart(cartId, token) {
     `${process.env.NEXT_PUBLIC_EP_API_BASE_URL}/v2/carts/${cartId}?include=items`,
     { method: "GET", headers: headers }
   );
-  const { data } = await result.json();
+  // const { data } = await result.json();
+  const results = await result.json();
 
-  // console.log(`cart data is `, data);
-  return data;
+   console.log(`cart data is `, results);
+  return results;
 }
 
 export async function addProductToCart(cartId, token, productId, quantity) {

@@ -27,7 +27,7 @@ export async function middleware(req, res) {
       sameSite: "strict",
       path: "/",
     });
-    res.cookie("expires", Math.floor(Date.now() / 1000));
+    res.cookie("expires", Math.floor((Date.now()+30*60000) / 1000)); // add 30 min
     //return res;
   } else {
     // token is valid

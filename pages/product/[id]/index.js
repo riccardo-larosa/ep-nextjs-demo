@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { getAccessToken } from "../../../services/authentication";
 import Meta from "../../../components/Meta";
-import useSWR from "swr";
+import useSWR, {mutate} from "swr";
 import fetcher from "../../../services/fetcher";
 
 
 function product({ product }) {
-  const { data, mutate } = useSWR('/api/cart', fetcher);
-  console.log(product);
+  const { data } = useSWR('/api/cart', fetcher);
+  //console.log(product);
   return (
     <>
       <Meta title={product.attributes.name} />
@@ -21,8 +21,8 @@ function product({ product }) {
               "Content-Type": "application/json"
             },
             body: JSON.stringify({id: product.id, type: "cart_item", quantity: 1})
-          })
-          mutate()
+          });
+          mutate('/api/cart');
         }
         
         } >
