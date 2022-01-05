@@ -11,8 +11,11 @@ export async function getCart(cartId, token) {
   );
   // const { data } = await result.json();
   const results = await result.json();
-
-   console.log(`cart data is `, results);
+  const {errors} = results;
+  console.log(`cart data is `, results);
+  if (errors !== undefined) {
+    console.log(`ERROR in getCart() with token: ${token}`)
+  }
   return results;
 }
 

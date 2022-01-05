@@ -1,35 +1,39 @@
 import { useRouter } from "next/router";
 import { getAccessToken } from "../../../services/authentication";
 import Meta from "../../../components/Meta";
-import useSWR, {mutate} from "swr";
+import useSWR, { mutate } from "swr";
 import fetcher from "../../../services/fetcher";
 
-
-function product({ product }) {
-  const { data } = useSWR('/api/cart', fetcher);
+function Product({ product }) {
+  const { data } = useSWR("/api/cart", fetcher);
   //console.log(product);
   return (
     <>
       <Meta title={product.attributes.name} />
       <div>{product.attributes.name}</div>
       <span> {product.meta.display_price.without_tax.formatted}</span>
-      <button type="button"
-        onClick={() => {
-          fetch("/api/cart", {
+      <button
+        type="button"
+        onClick={async () => {
+          await fetcher("/api/cart", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
             },
-            body: JSON.stringify({id: product.id, type: "cart_item", quantity: 1})
+            body: JSON.stringify({
+              id: product.id,
+              type: "cart_item",
+              quantity: 1,
+            }),
           });
-          mutate('/api/cart');
-        }
-        
-        } >
+          mutate("/api/cart");
+        }}
+      >
         Add to Cart
       </button>
       <br />
-      <span> {product.attributes.sku}</span><br />
+      <span> {product.attributes.sku}</span>
+      <br />
       <span>{product.attributes.description}</span>
     </>
   );
@@ -58,9 +62,9 @@ export const getStaticProps = async (context) => {
   };
 };
 
-export const getStaticPaths = async ( context ) => {
-  // in this case the req is processed server side so I don't have cookies 
-  const token = await getAccessToken( context.req, context.res);
+export const getStaticPaths = async (context) => {
+  // in this case the req is processed server side so I don't have cookies
+  const token = await getAccessToken(context.req, context.res);
   var headers = {
     Authorization: `Bearer ${token}`,
   };
@@ -85,4 +89,4 @@ export const getStaticPaths = async ( context ) => {
   };
 };
 
-export default product;
+export default Product;

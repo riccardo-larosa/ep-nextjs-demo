@@ -4,7 +4,7 @@ import fetcher from "../services/fetcher";
 import useSWR from "swr";
 
 const Nav = () => {
-  const { data, mutate } = useSWR("/api/cart", fetcher);
+  const { data } = useSWR("/api/cart", fetcher);
   return (
     <nav className={navStyles.nav}>
       <ul>
@@ -19,8 +19,7 @@ const Nav = () => {
         </li>
         <li>
           <Link href="/cart">Cart</Link>
-
-          {data ? <div>items: {data.data.meta.display_price.with_tax.formatted}</div> : "loading..."}
+          {data ? <div>items: {data.data.meta.display_price.with_tax.formatted}</div> : "loading..." }
         </li>
       </ul>
     </nav>

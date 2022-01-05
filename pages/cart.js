@@ -9,7 +9,7 @@ export default function cart(props) {
       <ul>
         {props.included.items.map((item) => (
           <li>
-            <Link href={`/product/${item.id}`} key={item.id}>
+            <Link href={`/product/${item.product_id}`} key={item.id}>
               <a>{item.name}</a>
             </Link>
             - quantity: {item.quantity}-{" "}
@@ -24,7 +24,7 @@ export default function cart(props) {
 export async function getServerSideProps({ req, res }) {
   var token = req.cookies["token"];
   var cartId = req.cookies["ep-cart"];
-
+  console.log(`token is ${token}`);
   const results = await getCart(cartId, token);
 
   return {

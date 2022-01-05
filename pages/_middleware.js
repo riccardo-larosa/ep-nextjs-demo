@@ -19,6 +19,7 @@ export async function middleware(req, res) {
   }
   if (!isValid) {
     const token = await getAccessToken(req, res);
+    console.log(`new token is : ${token}`)
     // then set it on the cookie of the response
     res.cookie("token", token, {
       httpOnly: true,
