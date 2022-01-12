@@ -2,8 +2,10 @@ import Head from "next/head";
 // import Image from 'next/image'
 import NodeList from "../components/NodeList";
 import { getAccessToken } from "../services/authentication";
+import { getHierarchies } from "../services/catalog";
 
 export default function Home({ nodes }) {
+  console.log(`Home started`);
   return (
     <div>
       <Head>
@@ -19,21 +21,12 @@ export default function Home({ nodes }) {
 
 export async function getServerSideProps({ req, res }) {
   
-  const cookies = req.cookies;
-  var token = cookies["token"];
-
-  var headers = {
-    Authorization: `Bearer ${token}`,
-  };
-  // const resp = await fetch(`https://api.moltin.com/catalog/nodes`, {
-  const resp = await fetch(`https://api.moltin.com/catalog/hierarchies/ab644d5f-52ec-4442-b0e8-51ef2d643cad/nodes`, {
-    method: "GET",
-    headers: headers,
-  });
-  const { data } = await resp.json();
+  // const cookies = req.cookies;
+  var token = req.cookies["token"];
+  const results = await getHierarchies(token);
   return {
     props: {
-      nodes: data,
+      nodes: results.data,
     },
   };
 }

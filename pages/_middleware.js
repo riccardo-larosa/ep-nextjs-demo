@@ -4,6 +4,7 @@ import { getAccessToken } from "../services/authentication";
 //export async function isTokenValid(req) {}
 
 export async function middleware(req, res) {
+  console.log(`MW started`);
   res = NextResponse.next();
   var isValid = true;
 
@@ -53,5 +54,6 @@ export async function middleware(req, res) {
       // cart is valid
       console.log(`MW: cart is valid: ${cookieCart}`)
   }
+  console.log(`MW ended`);
   return res;
 }

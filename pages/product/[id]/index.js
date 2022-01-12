@@ -3,15 +3,26 @@ import { getAccessToken } from "../../../services/authentication";
 import Meta from "../../../components/Meta";
 import useSWR, { mutate } from "swr";
 import fetcher from "../../../services/fetcher";
+import productStyles from "../../../styles/Product.module.css";
 
 function Product({ product }) {
   const { data } = useSWR("/api/cart", fetcher);
-  //console.log(product);
+  console.log(product); 
+  var imageHref = "";
+  if (product.included !== undefined) {
+      console.log(product.included.main_images[0].href);
+      imageHref = product.included.main_images[0].link.href;
+      console.log(`image href is`, imageHref);
+  }
+  var product = product.data; 
+  
   return (
     <>
       <Meta title={product.attributes.name} />
-      <div>{product.attributes.name}</div>
-      <span> {product.meta.display_price.without_tax.formatted}</span>
+      <div className={productStyles.productCart}>
+      <div className={productStyles.producInfo}>{product.attributes.name}</div>
+      <div className={productStyles.productImage}><img src={imageHref}/></div>
+      <h5> {product.meta.display_price.without_tax.formatted}</h5>
       <button
         type="button"
         onClick={async () => {
@@ -31,10 +42,10 @@ function Product({ product }) {
       >
         Add to Cart
       </button>
+      <h6> {product.attributes.sku}</h6>
       <br />
-      <span> {product.attributes.sku}</span>
-      <br />
-      <span>{product.attributes.description}</span>
+      <h6>{product.attributes.description}</h6>
+      </div>
     </>
   );
 }
@@ -47,13 +58,14 @@ export const getStaticProps = async (context) => {
     Authorization: `Bearer ${token}`,
   };
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_EP_API_BASE_URL}/catalog/products/${context.params.id}`,
+    `${process.env.NEXT_PUBLIC_EP_API_BASE_URL}/catalog/products/${context.params.id}?include=main_image`,
     { method: "GET", headers: headers }
   );
-  const { data } = await res.json();
+  // const { data } = await res.json();
+  const results = await res.json();
   return {
     props: {
-      product: data,
+      product: results,
       // Next.js will attempt to re-generate the page:
       // - When a request comes in
       // - At most once every 10 seconds

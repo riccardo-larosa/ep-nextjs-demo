@@ -4,6 +4,7 @@ import fetcher from "../services/fetcher";
 import useSWR from "swr";
 
 const Nav = () => {
+  // we should do this in the _app.js file instead
   const { data } = useSWR("/api/cart", fetcher);
   return (
     <nav className={navStyles.nav}>
