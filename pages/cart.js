@@ -6,6 +6,7 @@ export default function cart(props) {
   return (
     <div>
       <h1>Cart</h1>
+      <h3>Total: {props.data.meta.display_price.with_tax.formatted}</h3>
       <ul>
         {props.included.items.map((item) => (
           <li key={item.id}>
@@ -14,6 +15,8 @@ export default function cart(props) {
             </Link>
             - quantity: {item.quantity}-{" "}
             {item.meta.display_price.without_tax.value.formatted}
+            <br />
+            <img  src={item.image.href} height='110px'/>
           </li>
         ))}
       </ul>

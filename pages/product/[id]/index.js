@@ -7,10 +7,9 @@ import productStyles from "../../../styles/Product.module.css";
 
 function Product({ product }) {
   const { data } = useSWR("/api/cart", fetcher);
-  console.log(product); 
+  //console.log(product); 
   var imageHref = "";
   if (product.included !== undefined) {
-      console.log(product.included.main_images[0].href);
       imageHref = product.included.main_images[0].link.href;
       console.log(`image href is`, imageHref);
   }

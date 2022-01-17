@@ -2,7 +2,7 @@ import Link from "next/link";
 import productStyles from "../styles/Product.module.css";
 
 const ProductItem = ({ product }) => {
-  console.log(product);
+  // console.log(product);
   var desc = product.attributes.description;
   if (desc !== undefined) {
     desc = desc.substring(0,200).concat("...");
