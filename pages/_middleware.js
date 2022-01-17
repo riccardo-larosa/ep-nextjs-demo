@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAccessToken } from "../services/authentication";
 
-//export async function isTokenValid(req) {}
 
 export async function middleware(req, res) {
   console.log(`MW started`);

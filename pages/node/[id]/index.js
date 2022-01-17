@@ -23,14 +23,29 @@ export const getServerSideProps = async (context) => {
     Authorization: `Bearer ${token}`,
   };
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_EP_API_BASE_URL}/catalog/nodes/${context.params.id}/relationships/products`,
+    `${process.env.NEXT_PUBLIC_EP_API_BASE_URL}/catalog/nodes/${context.params.id}/relationships/products?include=main_image`,
     { method: "GET", headers: headers }
   );
-  const { data }  = await res.json();
-  console.log(data)
+  const { data, included }  = await res.json();
+  //console.log(data)
+  const products = data.map(product => {
+    var imageId = false;
+    if (product.relationships !== undefined) {
+      if (product.relationships.main_image !== undefined) {
+        imageId = product.relationships.main_image.data.id;
+        console.log(`imageId is ${imageId}`);
+      }
+    }
+
+    return {
+      ...product, 
+      image: imageId ? included.main_images.find(img => img.id === imageId).link.href : '/light-hex.svg'
+    }        
+
+  });
   return {
     props: {
-      prodList: data,
+      prodList: products,
     },
   };
 };

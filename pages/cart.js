@@ -8,7 +8,7 @@ export default function cart(props) {
       <h1>Cart</h1>
       <ul>
         {props.included.items.map((item) => (
-          <li>
+          <li key={item.id}>
             <Link href={`/product/${item.product_id}`} key={item.id}>
               <a>{item.name}</a>
             </Link>

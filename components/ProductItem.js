@@ -7,10 +7,10 @@ const ProductItem = ({ product }) => {
   if (desc !== undefined) {
     desc = desc.substring(0,200).concat("...");
   }
-  var image = "";
-  if (product.included !== undefined) {
-      image = product.included.main_images[0].link.href;
-  }
+  // var image = "";
+  // if (product.included !== undefined) {
+  //     image = product.included.main_images[0].link.href;
+  // }
   return (
     <>
     <div className={productStyles.productCard}>
@@ -20,7 +20,7 @@ const ProductItem = ({ product }) => {
         </a>
       </Link> 
       <div className={productStyles.productImage}>
-        <img src={image} />
+        <img src={product.image} />
       </div>
       <div className={productStyles.productInfo}> 
         <h5>{product.meta.display_price.without_tax.formatted}</h5>
