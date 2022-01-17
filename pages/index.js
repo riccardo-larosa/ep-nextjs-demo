@@ -6,6 +6,9 @@ import { getHierarchies } from "../services/catalog";
 
 export default function Home({ nodes }) {
   console.log(`Home started`);
+  if (nodes === undefined) {
+    console.log(`nodes are undefined`)
+  }
   return (
     <div>
       <Head>
