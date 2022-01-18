@@ -3,17 +3,6 @@
 
 export async function getAccessToken (req, res){
 
-  //Logic should be
-  // if you don't have a token or if it's invalid or expired, 
-  //    then get a new one
-  //    else keep the token and move on  
-  //
-  // TODO: following code always get a new token
-  // TODO: token should be saved in a cookie
-  // TODO: if req is coming from the server then you don't have a cookie, 
-  //        then we will generate a new one
-
-
   const clientID = process.env.NEXT_PUBLIC_EP_CLIENT_ID;
   const APIBaseURL = process.env.NEXT_PUBLIC_EP_API_BASE_URL;
   const grantType = "implicit";

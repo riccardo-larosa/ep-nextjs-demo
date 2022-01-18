@@ -26,6 +26,9 @@ export async function getServerSideProps({ req, res }) {
   
   // const cookies = req.cookies;
   var token = req.cookies["token"];
+  if (token === undefined) {
+    token = await getAccessToken(req, res);
+  }
   const results = await getHierarchies(token);
   return {
     props: {
